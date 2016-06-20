@@ -82,7 +82,7 @@ public class SumView extends JFrame {
 
 		exercise= new JLabel(m_sum.getExercise());
 		exercise.setPreferredSize(new Dimension(350, 130));
-		//label atlatszova tetele, hatter beallitasa
+		//transparent label, set background
 		exercise.setOpaque(false);
 		exercise.setBackground(new Color(255, 255, 255));
 		
@@ -105,7 +105,7 @@ public class SumView extends JFrame {
 		wrong= new ImagedLabel(getClass().getResource("images/gw.jpg"));
 		wrong.setPreferredSize(new Dimension(60, 60));
 		
-		//font beallitas
+		//set font
 		Font f;
 		try {
 			f= Font.createFont(Font.TRUETYPE_FONT, SumView.class.getClassLoader().getResourceAsStream("Fonts/hunNums.ttf")); 
@@ -116,7 +116,7 @@ public class SumView extends JFrame {
 		} catch (FontFormatException e) { e.printStackTrace();
 		} catch (IOException e) { e.printStackTrace(); }
 		
-		//panel beallitas
+		//set panel
 		content= new JPanel();
 		choices= new JPanel();
 		rewards= new JPanel();

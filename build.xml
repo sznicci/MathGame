@@ -1,0 +1,38 @@
+<project name="mathGame" default="run" basedir=".">
+
+      <property name="sourceDir" value="src"/>
+      <property name="outputDir" value="build" />
+
+   <target name="clean">
+      <delete dir="${outputDir}" />
+   </target>
+
+   <target name="prepare" depends="clean">
+      <mkdir dir="${outputDir}/classes" />
+   </target>
+
+   <target name="compile" depends="prepare">
+     <javac srcdir="${sourceDir}" includeantruntime="false" destdir="${outputDir}/classes" />
+	<copy todir="${outputDir}/classes">
+    	<fileset dir="${sourceDir}">
+       	 	<include name="images/*.*"/>
+       		<include name="Fonts/*.ttf"/>
+			<include name="drawings/*.jpg"/>
+    	</fileset>
+	</copy>
+   </target>
+
+	<target name="jar">
+        <mkdir dir="${outputDir}/jar"/>
+        <jar destfile="${outputDir}/jar/SumMVC.jar" basedir="${outputDir}/classes">
+            <manifest>
+                <attribute name="Main-Class" value="SumMVC"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run">
+        <java jar="${outputDir}/jar/SumMVC.jar" fork="true"/>
+    </target>
+
+</project>

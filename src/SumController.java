@@ -66,7 +66,7 @@ public class SumController {
 	
 	class FrameListener extends WindowAdapter{
 		public void windowClosing(WindowEvent e){
-			JOptionPane.showMessageDialog(m_view, "�ppen ment�s t�rt�nik, ut�na kil�p.\n Nyomj egy OK-t.");
+			JOptionPane.showMessageDialog(m_view, "Saving status.\n Press OK.");
 			m_model.save();
 //			m_mail.sendMail(new Integer(m_model.getGoodCounter()).toString());
 

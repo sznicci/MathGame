@@ -3,6 +3,9 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+# Ant build directory
+build/
+
 # Package Files #
 *.jar
 *.war

@@ -6,6 +6,8 @@
 
 import java.io.*;
 import java.util.*;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 
 public class SumModel {
 	private int number1;
@@ -28,9 +30,9 @@ public class SumModel {
 			 
 			String content= getGoodCounter()+"";
  
-			File saveFile= new File("C:/Users/Public/Documents/eriJatekMentes.txt");
+			File saveFile= new File(FileSystems.getDefault() + "mathGameSaving.txt");
  
-			// if file doesnt exists, then create it
+			// if file doesn't exists, then create it
 			if (!saveFile.exists()) {
 				saveFile.createNewFile();
 			}
@@ -49,7 +51,7 @@ public class SumModel {
 	
 	public void load(){
 		try{
-			File loadFile= new File("C:/Users/Public/Documents/eriJatekMentes.txt");
+			File loadFile= new File(FileSystems.getDefault() + "mathGameSaving.txt");
 			
 			
 			if (!loadFile.exists()) {
@@ -130,14 +132,14 @@ public class SumModel {
 		return (goodResult == result) ? true : false;
 	}
 	
-	public static void main(String[] args){
-		/*SumModel oM= new SumModel();
-		oM.generate();
-		System.out.println(oM.getExercise());
-		System.out.println(oM.getChoice1());
-		System.out.println(oM.getChoice2());
-		System.out.println(oM.getChoice3());*/
-	}
+//	public static void main(String[] args){
+//		/*SumModel oM= new SumModel();
+//		oM.generate();
+//		System.out.println(oM.getExercise());
+//		System.out.println(oM.getChoice1());
+//		System.out.println(oM.getChoice2());
+//		System.out.println(oM.getChoice3());*/
+//	}
 
 	protected int getGoodCounter() {
 		return goodCounter;

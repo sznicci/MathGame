@@ -1,3 +1,4 @@
+
 /**
  * @author sznicci
  *
@@ -6,7 +7,6 @@
 
 import java.io.*;
 import java.util.*;
-import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 
 public class SumModel {
@@ -19,127 +19,129 @@ public class SumModel {
 	private int goodCounter;
 	private boolean goodCChecker;
 	private int rand;
-	
-	public SumModel(){
+
+	public SumModel() {
 		load();
 		generate();
 	}
-	
-	public void save(){
+
+	public void save() {
 		try {
-			 
-			String content= getGoodCounter()+"";
- 
-			File saveFile= new File(FileSystems.getDefault() + "mathGameSaving.txt");
- 
-			// if file doesn't exists, then create it
+
+			String content = getGoodCounter() + "";
+
+			File saveFile = new File(FileSystems.getDefault() + "mathGameSaving.txt");
+
+			// if file doesn't exist then create it
 			if (!saveFile.exists()) {
 				saveFile.createNewFile();
 			}
- 
+
 			FileWriter fw = new FileWriter(saveFile.getAbsoluteFile());
 			BufferedWriter bw = new BufferedWriter(fw);
 			bw.write(content);
 			bw.close();
- 
+
 			System.out.println("Done");
- 
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void load(){
-		try{
-			File loadFile= new File(FileSystems.getDefault() + "mathGameSaving.txt");
-			
-			
+
+	public void load() {
+		try {
+			File loadFile = new File(FileSystems.getDefault() + "mathGameSaving.txt");
+
 			if (!loadFile.exists()) {
 				setGoodCounter(0);
 				return;
 			}
 
-			FileReader fileReader= new FileReader(loadFile);
-			BufferedReader reader= new BufferedReader(fileReader);
+			FileReader fileReader = new FileReader(loadFile);
+			BufferedReader reader = new BufferedReader(fileReader);
 
-			String line= null;
-			
-			while( (line= reader.readLine()) != null ){
+			String line = null;
+
+			while ((line = reader.readLine()) != null) {
 				setGoodCounter(Integer.parseInt(line));
 			}
-			
-			reader.close();
-		}catch(Exception ex){ ex.printStackTrace(); }
-	}
-	
-	public void generate(){
-		goodCChecker= false;
-		choices= new ArrayList<Integer>();
 
-		if(getGoodCounter()<71){
-			rand= 10;
+			reader.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
-		else if(getGoodCounter()>=71 && getGoodCounter()<251){
-			rand= 15;
+	}
+
+	public void generate() {
+		goodCChecker = false;
+		choices = new ArrayList<Integer>();
+
+		if (getGoodCounter() < 71) {
+			rand = 10;
+		} else if (getGoodCounter() >= 71 && getGoodCounter() < 251) {
+			rand = 15;
+		} else if (getGoodCounter() >= 251) {
+			rand = 20;
 		}
-		else if(getGoodCounter()>=251){
-			rand= 20;
-		}
-		number1= (int) (Math.random() *rand);
-		number2= (int) (Math.random() *rand);
-		
-		goodResult= number1+number2;
-		/*System.out.println("jo: "+goodResult);
-		System.out.println("num1: "+number1);
-		System.out.println("num2: "+number2);*/
-		do{
-			result1= (int) (Math.random() *(rand*2));
-		} while(goodResult==result1);
-		do{
-			result2= (int) (Math.random() *(rand*2));
-		} while(result2==result1 || result2==goodResult);
+		number1 = (int) (Math.random() * rand);
+		number2 = (int) (Math.random() * rand);
+
+		goodResult = number1 + number2;
+		/*
+		 * System.out.println("jo: "+goodResult); System.out.println("num1: "
+		 * +number1); System.out.println("num2: "+number2);
+		 */
+		do {
+			result1 = (int) (Math.random() * (rand * 2));
+		} while (goodResult == result1);
+		do {
+			result2 = (int) (Math.random() * (rand * 2));
+		} while (result2 == result1 || result2 == goodResult);
 		choices.add(result1);
 		choices.add(result2);
 		choices.add(goodResult);
-		long seed = (long) (Math.random() *100); //System.nanoTime();
+		long seed = (long) (Math.random() * 100); // System.nanoTime();
 		Collections.shuffle(choices, new Random(seed));
 
 	}
-	
-	public String getExercise(){
-		return number1+" + "+number2+" = ";
+
+	public String getExercise() {
+		return number1 + " + " + number2 + " = ";
 	}
-	
-	public String getChoice1(){
+
+	public String getChoice1() {
 		return choices.get(0).toString();
 	}
-	public String getChoice2(){
+
+	public String getChoice2() {
 		return choices.get(1).toString();
 	}
-	public String getChoice3(){
+
+	public String getChoice3() {
 		return choices.get(2).toString();
 	}
-	
-	public boolean check(int result){
-		if(!goodCChecker){
-			if(goodResult == result){
+
+	public boolean check(int result) {
+		if (!goodCChecker) {
+			if (goodResult == result) {
 				setGoodCounter(getGoodCounter() + 1);
 			}
-			goodCChecker= true;
-			System.out.println("gcounter: "+getGoodCounter());
+			goodCChecker = true;
+			System.out.println("gcounter: " + getGoodCounter());
 		}
-		//System.out.print(goodResult +" "+ result);
+		// System.out.print(goodResult +" "+ result);
 		return (goodResult == result) ? true : false;
 	}
-	
-//	public static void main(String[] args){
-//		/*SumModel oM= new SumModel();
-//		oM.generate();
-//		System.out.println(oM.getExercise());
-//		System.out.println(oM.getChoice1());
-//		System.out.println(oM.getChoice2());
-//		System.out.println(oM.getChoice3());*/
-//	}
+
+	// public static void main(String[] args){
+	// /*SumModel oM= new SumModel();
+	// oM.generate();
+	// System.out.println(oM.getExercise());
+	// System.out.println(oM.getChoice1());
+	// System.out.println(oM.getChoice2());
+	// System.out.println(oM.getChoice3());*/
+	// }
 
 	protected int getGoodCounter() {
 		return goodCounter;
